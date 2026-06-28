@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varun Paandian M — Data Engineer & Python AI Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0B0F1A;
+    --navy2:   #111827;
+    --navy3:   #1C2333;
+    --navy4:   #252D3F;
+    --teal:    #00D4AA;
+    --teal2:   #00B892;
+    --teal-dim:#00D4AA22;
+    --slate:   #8892A4;
+    --light:   #C8D0DF;
+    --white:   #EEF2F8;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--navy);
+    color: var(--light);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(11,15,26,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,212,170,0.08);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--teal); letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 13px; font-family: var(--mono); color: var(--slate); text-decoration: none; letter-spacing: 0.05em; transition: color .2s; }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,170,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1100px; width: 100%;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 13px; color: var(--teal);
+    letter-spacing: 0.12em; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--teal); }
+  h1 {
+    font-family: var(--sans); font-weight: 600; font-size: clamp(36px, 4vw, 52px);
+    color: var(--white); line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero-terminal {
+    font-family: var(--mono); font-size: 13px; color: var(--slate);
+    background: var(--navy3); border: 1px solid var(--navy4);
+    border-radius: 8px; padding: 16px 20px;
+    margin-bottom: 28px; line-height: 1.9;
+  }
+  .hero-terminal .prompt { color: var(--teal); }
+  .hero-terminal .cmd { color: var(--white); }
+  .hero-terminal .out { color: var(--slate); }
+  .cursor {
+    display: inline-block; width: 2px; height: 14px;
+    background: var(--teal); margin-left: 2px; vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .hero-desc { color: var(--slate); font-size: 15px; line-height: 1.75; margin-bottom: 36px; max-width: 480px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    padding: 12px 24px; border-radius: 6px;
+    background: var(--teal); color: var(--navy);
+    border: none; cursor: pointer; text-decoration: none;
+    letter-spacing: 0.03em; transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--teal2); transform: translateY(-1px); }
+  .btn-ghost {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    padding: 12px 24px; border-radius: 6px;
+    background: transparent; color: var(--teal);
+    border: 1px solid rgba(0,212,170,0.4); cursor: pointer; text-decoration: none;
+    letter-spacing: 0.03em; transition: border-color .2s, background .2s, transform .15s;
+  }
+  .btn-ghost:hover { border-color: var(--teal); background: var(--teal-dim); transform: translateY(-1px); }
+
+  /* HERO RIGHT — stats */
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .stat-card {
+    background: var(--navy3); border: 1px solid var(--navy4);
+    border-radius: 10px; padding: 24px 20px;
+    transition: border-color .2s;
+  }
+  .stat-card:hover { border-color: rgba(0,212,170,0.25); }
+  .stat-card.accent { border-color: rgba(0,212,170,0.2); background: rgba(0,212,170,0.04); }
+  .stat-num { font-family: var(--mono); font-size: 32px; font-weight: 600; color: var(--teal); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 12px; color: var(--slate); letter-spacing: 0.04em; }
+
+  /* SECTION */
+  section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
+  .sec-eyebrow {
+    font-family: var(--mono); font-size: 12px; color: var(--teal);
+    letter-spacing: 0.12em; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
+  h2 { font-size: 32px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 48px; }
+  .divider { width: 100%; height: 1px; background: var(--navy4); margin: 0 60px; max-width: calc(100% - 120px); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+  .skill-group-title {
+    font-family: var(--mono); font-size: 12px; color: var(--teal);
+    letter-spacing: 0.1em; margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--navy4);
+  }
+  .skill-row { margin-bottom: 14px; }
+  .skill-meta { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .skill-name { font-size: 13px; color: var(--light); }
+  .skill-pct { font-family: var(--mono); font-size: 11px; color: var(--slate); }
+  .skill-track { height: 3px; background: var(--navy4); border-radius: 2px; overflow: hidden; }
+  .skill-fill {
+    height: 100%; background: var(--teal); border-radius: 2px;
+    width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+  .skill-fill.animated { width: var(--w); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .proj-card {
+    background: var(--navy3); border: 1px solid var(--navy4);
+    border-radius: 12px; padding: 28px 24px;
+    display: flex; flex-direction: column;
+    transition: border-color .2s, transform .2s;
+    position: relative; overflow: hidden;
+  }
+  .proj-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--teal); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .proj-card:hover { border-color: rgba(0,212,170,0.2); transform: translateY(-3px); }
+  .proj-card:hover::before { transform: scaleX(1); }
+  .proj-tag { font-family: var(--mono); font-size: 10px; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 12px; }
+  .proj-title { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+  .proj-desc { font-size: 13px; color: var(--slate); line-height: 1.7; flex: 1; margin-bottom: 20px; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .stack-pill {
+    font-family: var(--mono); font-size: 10px; padding: 3px 8px;
+    background: var(--navy4); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px; color: var(--slate); letter-spacing: 0.04em;
+  }
+  .proj-links { display: flex; gap: 12px; }
+  .proj-link {
+    font-family: var(--mono); font-size: 11px; color: var(--teal);
+    text-decoration: none; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 5px;
+    transition: opacity .2s;
+  }
+  .proj-link:hover { opacity: 0.7; }
+  .proj-link svg { width: 12px; height: 12px; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 32px; padding: 36px 0;
+    border-bottom: 1px solid var(--navy4);
+  }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-date { font-family: var(--mono); font-size: 12px; color: var(--slate); padding-top: 4px; }
+  .exp-role { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .exp-company { font-family: var(--mono); font-size: 13px; color: var(--teal); margin-bottom: 14px; }
+  .exp-desc { font-size: 13px; color: var(--slate); line-height: 1.75; }
+  .exp-highlights { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .exp-highlights li { font-size: 13px; color: var(--slate); padding-left: 16px; position: relative; line-height: 1.6; }
+  .exp-highlights li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: 10px; top: 3px; }
+
+  /* CERTIFICATIONS */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .cert-card {
+    background: var(--navy3); border: 1px solid var(--navy4);
+    border-radius: 8px; padding: 20px 18px;
+    transition: border-color .2s;
+  }
+  .cert-card:hover { border-color: rgba(0,212,170,0.2); }
+  .cert-year { font-family: var(--mono); font-size: 10px; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 8px; }
+  .cert-name { font-size: 13px; font-weight: 500; color: var(--light); line-height: 1.4; }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .contact-text h2 { margin-bottom: 20px; }
+  .contact-text p { color: var(--slate); font-size: 15px; line-height: 1.75; margin-bottom: 32px; }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 13px; color: var(--light);
+    text-decoration: none; transition: color .2s;
+  }
+  .contact-link:hover { color: var(--teal); }
+  .contact-icon { width: 36px; height: 36px; border-radius: 6px; background: var(--navy3); border: 1px solid var(--navy4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-icon svg { width: 16px; height: 16px; color: var(--teal); }
+  .contact-card {
+    background: var(--navy3); border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 12px; padding: 32px 28px;
+  }
+  .contact-card h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+  .contact-card p { font-size: 13px; color: var(--slate); margin-bottom: 20px; line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px; border-top: 1px solid var(--navy4);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px; color: var(--slate);
+  }
+  footer a { color: var(--slate); text-decoration: none; }
+  footer a:hover { color: var(--teal); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 70px 24px; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 10px; text-align: center; }
+    .divider { margin: 0 24px; max-width: calc(100% - 48px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skill-fill { transition: none; }
+    .cursor { animation: none; opacity: 1; }
+    .proj-card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">VP</div>
+  <ul class="nav-links">
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">BANGALORE, INDIA</div>
+      <h1>Varun<br>Paandian M</h1>
+      <div class="hero-terminal" aria-label="Terminal showing role and tech stack">
+        <div><span class="prompt">$ </span><span class="cmd">whoami</span></div>
+        <div class="out">data-engineer &amp; python-ai-developer</div>
+        <div style="margin-top:6px"><span class="prompt">$ </span><span class="cmd">stack --list</span></div>
+        <div class="out">FastAPI · Airflow · AWS S3 · TensorFlow</div>
+        <div class="out">SQL Server · Oracle · Power BI · GenAI<span class="cursor"></span></div>
+      </div>
+      <p class="hero-desc">3 years building production-grade ETL pipelines, AI-integrated backends, and data platforms for financial services. I ship things that run in production, not just notebooks.</p>
+      <div class="hero-cta">
+        <a href="mailto:mvarunp@gmail.com" class="btn-primary">get in touch</a>
+        <a href="https://linkedin.com/in/varun-paandianm" target="_blank" rel="noopener" class="btn-ghost">linkedin →</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card accent">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">years production experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30%</div>
+        <div class="stat-label">pipeline latency reduced</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">certifications earned</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">production systems built</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-eyebrow">SKILLS</div>
+  <h2>What I work with</h2>
+  <div class="skills-grid">
+    <div>
+      <div class="skill-group-title">LANGUAGES & FRAMEWORKS</div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">Python</span><span class="skill-pct">95%</span></div><div class="skill-track"><div class="skill-fill" style="--w:95%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">SQL (SQL Server, Oracle)</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill" style="--w:90%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">FastAPI</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">JavaScript / ReactJS</span><span class="skill-pct">65%</span></div><div class="skill-track"><div class="skill-fill" style="--w:65%"></div></div></div>
+    </div>
+    <div>
+      <div class="skill-group-title">DATA & AI</div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">Apache Airflow</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">TensorFlow / Scikit-learn</span><span class="skill-pct">78%</span></div><div class="skill-track"><div class="skill-fill" style="--w:78%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">GenAI / Agentic AI</span><span class="skill-pct">75%</span></div><div class="skill-track"><div class="skill-fill" style="--w:75%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">Power BI / Tableau</span><span class="skill-pct">82%</span></div><div class="skill-track"><div class="skill-fill" style="--w:82%"></div></div></div>
+    </div>
+    <div>
+      <div class="skill-group-title">CLOUD & INFRASTRUCTURE</div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">AWS S3</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill" style="--w:80%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">ETL Pipelines</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill" style="--w:90%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">REST API Design</span><span class="skill-pct">92%</span></div><div class="skill-track"><div class="skill-fill" style="--w:92%"></div></div></div>
+      <div class="skill-row"><div class="skill-meta"><span class="skill-name">JWT Auth / Security</span><span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill" style="--w:85%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-eyebrow">PROJECTS</div>
+  <h2>Things I've built</h2>
+  <div class="projects-grid">
+
+    <div class="proj-card">
+      <div class="proj-tag">PYTHON · AI BACKEND</div>
+      <div class="proj-title">ML Model Integration Service</div>
+      <div class="proj-desc">Integrated a TensorFlow CNN inference model into a FastAPI backend, exposing AI predictions via REST endpoints consumed by downstream analytics pipelines. Full production deployment with JWT-protected routes.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">TensorFlow</span><span class="stack-pill">CNN</span><span class="stack-pill">REST API</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-tag">GENAI · FASTAPI</div>
+      <div class="proj-title">GenAI Statement Builder API</div>
+      <div class="proj-desc">Python backend applying advanced analytics and business logic to transform SQL records into AI-enriched structured financial statements, delivered through a REST API for real-time consumption by banking teams.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">SQL Server</span><span class="stack-pill">GenAI</span><span class="stack-pill">Analytics</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-tag">ETL · AIRFLOW · AWS</div>
+      <div class="proj-title">SFTP File Delivery Pipeline</div>
+      <div class="proj-desc">Engineered Python SFTP push scripts integrated into Airflow DAGs for automated, scheduled delivery of AI-processed data files to partner systems in incremental and full-load modes. Zero manual intervention.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">Apache Airflow</span><span class="stack-pill">SFTP</span><span class="stack-pill">AWS S3</span><span class="stack-pill">ETL</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-tag">SECURITY · DSA</div>
+      <div class="proj-title">JWT Auth Middleware with RBAC</div>
+      <div class="proj-desc">Reusable Python middleware applying hash-map-based token lookup for O(1) verification of JWT tokens, enforcing role-based access control across all protected API routes at scale.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">JWT</span><span class="stack-pill">DSA</span><span class="stack-pill">RBAC</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-tag">MONITORING · DEVOPS</div>
+      <div class="proj-title">Health Check & AI Service Monitor</div>
+      <div class="proj-desc">FastAPI service that polls registered AI and data API endpoints at scheduled intervals, returning real-time health status and alerting on service degradation across the platform.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">FastAPI</span><span class="stack-pill">REST API</span><span class="stack-pill">Monitoring</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-tag">ML · COMPUTER VISION</div>
+      <div class="proj-title">Image Recognition CNN</div>
+      <div class="proj-desc">Trained and evaluated a CNN for multi-class image classification using TensorFlow. Applied data augmentation, feature extraction, and hyperparameter tuning with production inference endpoint integration.</div>
+      <div class="proj-stack">
+        <span class="stack-pill">Python</span><span class="stack-pill">TensorFlow</span><span class="stack-pill">Scikit-learn</span><span class="stack-pill">CNN</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/varun-paandian" class="proj-link" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-eyebrow">EXPERIENCE</div>
+  <h2>Where I've worked</h2>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-date">Jun 2023 — Jun 2026</div>
+      <div>
+        <div class="exp-role">Associate Engineer</div>
+        <div class="exp-company">UNCIA · Chennai, India</div>
+        <div class="exp-desc">Python & AI Backend Developer working across data engineering, ML integration, and API development for banking and financial services clients.</div>
+        <ul class="exp-highlights">
+          <li>Designed and independently delivered RESTful APIs using Python and FastAPI for complex data workflows across internal banking services and third-party AI integrations.</li>
+          <li>Integrated TensorFlow-based inference endpoints into FastAPI services, enabling AI-driven data classification within automated workflows.</li>
+          <li>Redesigned SQL stored procedures, indexes, and views — reduced data retrieval latency by 30%, preventing downstream SLA breaches.</li>
+          <li>Built Airflow DAGs for SFTP file delivery to partner systems with zero manual intervention across incremental and full-load modes.</li>
+          <li>Integrated AWS S3 for scalable storage of AI-processed files and pipeline outputs within Airflow-orchestrated workflows.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section>
+  <div class="sec-eyebrow">CERTIFICATIONS</div>
+  <h2>Credentials</h2>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-year">2025</div>
+      <div class="cert-name">Agentic AI, Generative AI & Reinforcement Learning</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-year">2024</div>
+      <div class="cert-name">Microsoft PL-300 — Power BI Data Analyst Associate</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-year">2023</div>
+      <div class="cert-name">Apache Airflow ETL</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-year">2023</div>
+      <div class="cert-name">SQL Server Management</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-year">2023</div>
+      <div class="cert-name">Tableau Training for Data Science</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-year">2022</div>
+      <div class="cert-name">Python Programming</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <div class="sec-eyebrow">CONTACT</div>
+      <h2>Let's work together</h2>
+      <p>Open to Data Engineer, ML Engineer, and Python AI Developer roles. Based in Bangalore — available for hybrid and remote opportunities across India and globally.</p>
+      <div class="contact-links">
+        <a href="mailto:mvarunp@gmail.com" class="contact-link">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          mvarunp@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/varun-paandianm" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          linkedin.com/in/varun-paandianm
+        </a>
+        <a href="https://github.com/varun-paandian" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          github.com/varun-paandian
+        </a>
+        <a class="contact-link" style="cursor:default">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          +91 88927 19959 · Bangalore, India
+        </a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>Education</h3>
+      <p>M.Sc in Data Science<br>Vellore Institute of Technology<br>Vellore, India · 2021–2023</p>
+      <div style="border-top:1px solid var(--navy4);padding-top:20px;margin-top:4px">
+        <h3 style="margin-bottom:8px">Focus areas</h3>
+        <p>Python · Statistics · Data Analysis & Visualization · Machine Learning · Predictive Modelling</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Varun Paandian M</span>
+  <span>Built with HTML · Hosted on <a href="https://pages.github.com" target="_blank">GitHub Pages</a></span>
+</footer>
+
+<script>
+  // Animate skill bars on scroll
+  const fills = document.querySelectorAll('.skill-fill');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('animated');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fills.forEach(f => obs.observe(f));
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  });
+</script>
+</body>
+</html>
